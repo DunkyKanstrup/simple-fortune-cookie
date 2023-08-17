@@ -4,13 +4,11 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build step
-        uses: ./.github/workflows/go.yml
+    uses: ./.github/workflows/go.yml
 
-  deploy: 
+  deployDev: 
     needs: [build]
+    if: startsWith(github.ref, 'refs/heads/issue/')
     runs-on: ubuntu-latest
     steps:
       - name: Development
@@ -19,11 +17,20 @@ jobs:
         with:
           environment: 'development'
 
+
+  deployStage:
+    needs: [build]
+    if: github.ref == 'ref/heads/development' 
+    runs-on: ubuntu-latest
+    steps:
       - name: Staging
-        if: github.ref == 'ref/heads/development' 
         uses: ./.github/workflows/deployment.yaml
 
+  deployProd:
+    needs: [build]
+    if: github.ref == 'ref/heads/main'
+    runs-on: ubuntu-latest
+    steps:
       - name: Production
-        if: github.ref == 'ref/heads/main'
         uses: ./.github/workflows/deployment.yaml
 

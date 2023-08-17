@@ -17,9 +17,9 @@ jobs:
         name: frontend
         path: .
     - name: Build Docker
-      run: chmod +x ./.github/workflows/ci/build-docker.sh && ./.github/workflows/ci/build-docker.sh 
+      run: bash ./.github/workflows/ci/build-docker.sh && ./.github/workflows/ci/build-docker.sh 
     - name: Push Docker
-      run: chmod +x ./.github/workflows/ci/push-docker.sh && ./.github/workflows/ci/push-docker.sh 
+      run: bash ./.github/workflows/ci/push-docker.sh && ./.github/workflows/ci/push-docker.sh 
 
   deploy_backend:
     runs-on: ubuntu-latest

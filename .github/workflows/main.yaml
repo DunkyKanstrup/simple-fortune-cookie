@@ -1,0 +1,24 @@
+name: main
+
+on: [push]
+
+jobs:
+  build:
+    uses: ./.github/workflows/go.yml
+
+  deploy: 
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Development
+        if: github.ref.name == issue/*
+        uses: ./.github/workflows/deployment.yaml
+
+      - name: Staging
+        if: github.ref.name == development 
+        uses: ./.github/workflows/deployment.yaml
+
+      - name: Production
+        if: github.ref.name == main
+        uses: ./.github/workflows/deployment.yaml
+

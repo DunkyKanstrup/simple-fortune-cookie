@@ -1,0 +1,7 @@
+name: deployment
+
+on:
+  workflow_call:
+
+steps: 
+  run: echo "Hello from deployment"

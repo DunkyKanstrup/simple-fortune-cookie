@@ -11,14 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Development
-        if: github.ref.name == issue/*
+        if: startsWith(github.ref, 'refs/heads/issue/')
         uses: ./.github/workflows/deployment.yaml
-
+        with:
+          environment: 'development'
       - name: Staging
-        if: github.ref.name == development 
+        if: github.ref == development 
         uses: ./.github/workflows/deployment.yaml
 
       - name: Production
-        if: github.ref.name == main
+        if: github.ref == main
         uses: ./.github/workflows/deployment.yaml
 

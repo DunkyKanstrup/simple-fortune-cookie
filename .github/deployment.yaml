@@ -2,6 +2,10 @@ name: deployment
 
 on:
   workflow_call:
-
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: string
 steps: 
-  run: echo "Hello from deployment"
+  run: echo ${{inputs.environment}}

@@ -21,7 +21,7 @@ jobs:
     - name: Upload 
       uses: actions/upload-artifact@v3
       with:
-        name: code
+        name: frontend
         path: .
     
     - name: Build Backend
@@ -30,7 +30,7 @@ jobs:
     - name: Upload 
       uses: actions/upload-artifact@v3
       with:
-        name: code
+        name: backend
         path: .
 
   test:

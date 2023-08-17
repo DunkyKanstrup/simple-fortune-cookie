@@ -17,11 +17,11 @@ jobs:
 
     - name: Build Frontend
       run: go build ./...
-      working-directory: ./frontend
+      working-directory: ./Docker/Frontend/frontend
     
     - name: Build Backend
       run: go build ./...
-      working-directory: ./backend
+      working-directory: ./Docker/Backend/backend
 
 
   test:
@@ -37,4 +37,4 @@ jobs:
 
     - name: Test Frontend
       run: go test ./...
-      working-directory: ./frontend
+      working-directory: ./Docker/Frontend/frontend

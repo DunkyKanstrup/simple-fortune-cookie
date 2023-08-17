@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: beackend
+    spec:
+      containers:
+        - name: devopsacademya
+          image: eficodeacademy/devopsacademya:latest

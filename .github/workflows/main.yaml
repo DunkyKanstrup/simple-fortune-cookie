@@ -9,28 +9,18 @@ jobs:
   deployDev: 
     needs: [build]
     if: startsWith(github.ref, 'refs/heads/issue/')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Development
-        if: startsWith(github.ref, 'refs/heads/issue/')
-        uses: ./.github/workflows/deployment.yaml
-        with:
-          environment: 'development'
+    uses: ./.github/workflows/deployment.yaml
+    with:
+      environment: 'development'
 
 
   deployStage:
     needs: [build]
     if: github.ref == 'ref/heads/development' 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Staging
-        uses: ./.github/workflows/deployment.yaml
+    uses: ./.github/workflows/deployment.yaml
 
   deployProd:
     needs: [build]
     if: github.ref == 'ref/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Production
-        uses: ./.github/workflows/deployment.yaml
+    uses: ./.github/workflows/deployment.yaml
 

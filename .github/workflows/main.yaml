@@ -4,25 +4,26 @@ on: [push]
 
 jobs:
   build:
-    uses: ./.github/workflows/go.yml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build step
+        uses: ./.github/workflows/go.yml
 
   deploy: 
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      
-
       - name: Development
         if: startsWith(github.ref, 'refs/heads/issue/')
         uses: ./.github/workflows/deployment.yaml
         with:
           environment: 'development'
-          
+
       - name: Staging
-        if: github.ref == 'ref/head/development' 
+        if: github.ref == 'ref/heads/development' 
         uses: ./.github/workflows/deployment.yaml
 
       - name: Production
-        if: github.ref == 'ref/head/main'
+        if: github.ref == 'ref/heads/main'
         uses: ./.github/workflows/deployment.yaml
 

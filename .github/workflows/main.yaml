@@ -16,10 +16,10 @@ jobs:
         with:
           environment: 'development'
       - name: Staging
-        if: github.ref == development 
+        if: github.ref == 'ref/head/development' 
         uses: ./.github/workflows/deployment.yaml
 
       - name: Production
-        if: github.ref == main
+        if: github.ref == 'ref/head/main'
         uses: ./.github/workflows/deployment.yaml
 

@@ -1,12 +1,12 @@
 version: '3'
 services:
   
-  web:
+  frontend:
     build: ./Frontend
     ports:
      - "8080:8080"
   
-  db:
+  backend:
     build: ./Backend
     ports:
       - "9000:9000"

@@ -17,6 +17,7 @@ jobs:
         uses: ./.github/workflows/deployment.yaml
         with:
           environment: 'development'
+          
       - name: Staging
         if: github.ref == 'ref/head/development' 
         uses: ./.github/workflows/deployment.yaml

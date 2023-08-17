@@ -18,9 +18,13 @@ jobs:
     needs: [build]
     if: github.ref == 'ref/heads/development' 
     uses: ./.github/workflows/deployment.yaml
+    with:
+      environment: 'staging'
 
   deployProd:
     needs: [build]
     if: github.ref == 'ref/heads/main'
     uses: ./.github/workflows/deployment.yaml
+    with:
+      environment: 'production'
 

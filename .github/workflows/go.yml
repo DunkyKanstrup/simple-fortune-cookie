@@ -5,7 +5,7 @@ name: Go
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "03Automation"]
   pull_request:
     branches: [ "main" ]
 

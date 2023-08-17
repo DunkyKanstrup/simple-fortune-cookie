@@ -1,0 +1,10 @@
+FROM ubuntu:latest
+
+COPY backend ./home/backend
+
+RUN apt-get update && \
+apt-get install golang-go -y &&\
+cd home/backend &&\
+go build
+
+CMD [ "go run backend" ]

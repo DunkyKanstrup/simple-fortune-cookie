@@ -1,0 +1,30 @@
+name: main
+
+on: [push]
+
+jobs:
+  build:
+    uses: ./.github/workflows/go.yml
+
+  deployDev: 
+    needs: [build]
+    if: startsWith(github.ref, 'refs/heads/issue/')
+    uses: ./.github/workflows/deployment.yaml
+    with:
+      environment: 'development'
+
+
+  deployStage:
+    needs: [build]
+    if: startsWith(github.ref, 'refs/heads/development') 
+    uses: ./.github/workflows/deployment.yaml
+    with:
+      environment: 'staging'
+
+  deployProd:
+    needs: [build]
+    if: startsWith(github.ref, 'refs/heads/main')
+    uses: ./.github/workflows/deployment.yaml
+    with:
+      environment: 'production'
+

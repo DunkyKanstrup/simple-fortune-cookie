@@ -12,7 +12,7 @@ jobs:
     uses: ./.github/workflows/deployment.yaml
     with:
       environment: 'development'
-
+    secrets: inherit
 
   deployStage:
     needs: [build]

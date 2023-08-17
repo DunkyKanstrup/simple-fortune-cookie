@@ -7,7 +7,12 @@ on:
         description: 'Deployment environment'
         required: true
         type: string
-steps: 
-  - name: Checkout
-    uses: actions/checkout@v2
-    run: echo ${{inputs.environment}}
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  
+    steps: 
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Echo varaiable
+      run: echo ${{input.environment}}

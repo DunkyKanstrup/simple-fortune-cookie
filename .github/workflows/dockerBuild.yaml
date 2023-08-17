@@ -1,0 +1,11 @@
+name: docker
+
+on:
+  workflow_call:
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        run: echo

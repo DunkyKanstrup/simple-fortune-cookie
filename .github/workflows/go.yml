@@ -18,11 +18,20 @@ jobs:
     - name: Build Frontend
       run: go build ./...
       working-directory: ./Docker/Frontend/frontend
+    - name: Upload 
+      uses: actions/upload-artifact@v3
+      with:
+        name: code
+        path: .
     
     - name: Build Backend
       run: go build ./...
       working-directory: ./Docker/Backend/backend
-
+    - name: Upload 
+      uses: actions/upload-artifact@v3
+      with:
+        name: code
+        path: .
 
   test:
     runs-on: ubuntu-latest
@@ -38,3 +47,4 @@ jobs:
     - name: Test Frontend
       run: go test ./...
       working-directory: ./Docker/Frontend/frontend
+

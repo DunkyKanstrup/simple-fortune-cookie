@@ -1,0 +1,7 @@
+name: main
+
+on: [push]
+
+jobs:
+  ci:
+    uses: ./.github/workflows/go.yml

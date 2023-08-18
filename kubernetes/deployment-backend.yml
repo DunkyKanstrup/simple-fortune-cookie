@@ -11,8 +11,13 @@ spec:
   template:
     metadata:
       labels:
-        app: beackend
+        app: backend
     spec:
       containers:
-        - name: devopsacademya
-          image: eficodeacademy/devopsacademya:latest
+        - name: backend
+          image: p3cival/backend:latest
+          ports:
+            - containerPort: 9000
+          env:
+            - name: 'REDIS_DNS'
+              value: redis

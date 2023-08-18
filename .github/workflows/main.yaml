@@ -2,10 +2,6 @@ name: main
 
 on: [push]
 
-env: # Set the secret as an input
-  docker_username: ${{ github.actor }}
-  docker_password: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build:
     uses: ./.github/workflows/go.yml

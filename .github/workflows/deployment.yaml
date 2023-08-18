@@ -8,9 +8,9 @@ on:
         required: true
         type: string
 
-    env: # Set the secret as an input
-      docker_username: ${{ github.actor }}
-      docker_password: ${{ secrets.GITHUB_TOKEN }}
+env: # Set the secret as an input
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   deploy_front:
     runs-on: ubuntu-latest

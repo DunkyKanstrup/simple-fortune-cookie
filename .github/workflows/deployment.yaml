@@ -15,7 +15,7 @@ jobs:
     - name: Download code
       uses: actions/download-artifact@v3
       with: 
-        name: frontend ${{environment}}
+        name: frontend
         path: .
     - name: Build Docker
       run: chmod +x ./ci/build-docker.sh && ./ci/build-docker.sh
@@ -28,7 +28,7 @@ jobs:
     - name: Download code
       uses: actions/download-artifact@v3
       with: 
-        name: backend ${{environment}}
+        name: backend
         path: .
     - name: Build Docker
       run: chmod +x ./ci/build-docker.sh && ./ci/build-docker.sh 

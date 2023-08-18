@@ -16,9 +16,7 @@ jobs:
         go-version: '^1.17'
 
     - name: Build Frontend
-      run: |
-        go build -o frontend ./...
-        cp ../../Dockerfile .
+      run: go build ./...
       working-directory: ./Docker/Frontend/frontend
     - name: Upload 
       uses: actions/upload-artifact@v3
@@ -27,15 +25,13 @@ jobs:
         path: .
     
     - name: Build Backend
-      run: |
-        go build -o backend ./...
-        cp ../../Dockerfile .
+      run: go build ./...
       working-directory: ./Docker/Backend/backend
     - name: Upload 
       uses: actions/upload-artifact@v3
       with:
         name: backend
-        path: ./Docker/Backend/backend
+        path: .
 
   test:
     runs-on: ubuntu-latest

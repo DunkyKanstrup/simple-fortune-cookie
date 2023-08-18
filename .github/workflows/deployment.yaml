@@ -7,14 +7,10 @@ on:
         description: 'Deployment environment'
         required: true
         type: string
-      username:
-        description: "Username for the push"
-        required: true
-        type: string
-      token:
-        description: "Token used to be able to push instead of password"
-        required: true
-        type: string
+
+    env: # Set the secret as an input
+      docker_username: ${{ github.actor }}
+      docker_password: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   deploy_front:
     runs-on: ubuntu-latest

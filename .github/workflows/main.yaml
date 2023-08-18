@@ -16,8 +16,6 @@ jobs:
     uses: ./.github/workflows/deployment.yaml
     with:
       environment: 'development'
-      username: ${{docker_username}}
-      token: ${{docker_password}}
 
 
   deployStage:

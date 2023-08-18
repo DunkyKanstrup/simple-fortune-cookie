@@ -7,10 +7,18 @@ on:
         description: 'Deployment environment'
         required: true
         type: string
-
-env: # Set the secret as an input
-  docker_username: ${{ github.actor }}
-  docker_password: ${{ secrets.GITHUB_TOKEN }}
+      docker_username: 
+        description: "Username for docker"
+        required: true
+        type: string
+      docker_password:
+        description: "User token from Github"
+        required: true
+        type: string
+      GIT_COMMIT: 
+        description: "A git commit"
+        required: true
+        type: string
 jobs:
   deploy_front:
     runs-on: ubuntu-latest
@@ -18,7 +26,7 @@ jobs:
     - name: Download code
       uses: actions/download-artifact@v3
       with: 
-        name: frontend
+        name: frontend ${{environment}}
         path: .
     - name: Build Docker
       run: chmod +x ./ci/build-docker.sh && ./ci/build-docker.sh
@@ -31,7 +39,7 @@ jobs:
     - name: Download code
       uses: actions/download-artifact@v3
       with: 
-        name: backend
+        name: backend ${{environment}}
         path: .
     - name: Build Docker
       run: chmod +x ./ci/build-docker.sh && ./ci/build-docker.sh 

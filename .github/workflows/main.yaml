@@ -2,6 +2,10 @@ name: main
 
 on: [push]
 
+env: # Set the secret as an input
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   build:
     uses: ./.github/workflows/go.yml
@@ -12,6 +16,8 @@ jobs:
     uses: ./.github/workflows/deployment.yaml
     with:
       environment: 'development'
+      username: ${{env.docker_username}}
+      token: ${{env.docker_password}}
 
 
   deployStage:
@@ -20,6 +26,8 @@ jobs:
     uses: ./.github/workflows/deployment.yaml
     with:
       environment: 'staging'
+      username: ${{env.docker_username}}
+      token: ${{env.docker_password}}
 
   deployProd:
     needs: [build]

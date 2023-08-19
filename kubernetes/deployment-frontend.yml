@@ -21,6 +21,12 @@ spec:
             - containerPort: 8080
           env:
             - name: BACKEND_PORT
-              value: "9000"
+              valueFrom:
+                configMapKeyRef:
+                  name: envorinment
+                  key: BACKEND_PORT
             - name: BACKEND_DNS
-              value: backend
+              valueFrom:
+                configMapKeyRef:
+                  name: envorinment
+                  key: BACKEND_DNS

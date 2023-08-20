@@ -32,21 +32,6 @@ jobs:
       environment: 'production'
       version: 'latest'
     secrets: inherit
-    
-
-  Kubernetes_Stag:
-    needs: [Docker_Stag]
-    uses: ./.github/workflows/kubeDeploy.yaml
-    secrets: inherit
-    with:
-      version: 'alpha'
-  
-  Kub_Dev:
-    #needs: [Docker_Dev]
-    uses: ./.github/workflows/kubeDeploy.yaml
-    secrets: inherit
-    with:
-      version: 'beta'
   
   Kub_Prod:
     needs: [Docker_Prod]
@@ -57,7 +42,7 @@ jobs:
 
   Testing:
     runs-on: ubuntu-latest
-    needs: [Kub_Dev]
+    needs: [Kub_Prod]
     steps:
     - name: Download Code
       uses: actions/checkout@v3

@@ -6,7 +6,7 @@ jobs:
   build:
     uses: ./.github/workflows/go.yml
 
-  deployDev: 
+  Docker_Dev: 
     needs: [build]
     if: startsWith(github.ref, 'refs/heads/issue/')
     uses: ./.github/workflows/deployment.yaml
@@ -15,7 +15,7 @@ jobs:
       version: 'beta'
     secrets: inherit
 
-  deployStage:
+  Docker_Stag:
     needs: [build]
     if: startsWith(github.ref, 'refs/heads/development') 
     uses: ./.github/workflows/deployment.yaml
@@ -24,7 +24,7 @@ jobs:
       version: 'alpha'
     secrets: inherit
 
-  deployProd:
+  Docker_Prod:
     needs: [build]
     if: startsWith(github.ref, 'refs/heads/main')
     uses: ./.github/workflows/deployment.yaml
@@ -34,22 +34,22 @@ jobs:
     secrets: inherit
     
 
-  deployKubeAlpha:
-    needs: [deployStage]
+  Kubernetes_Stag:
+    needs: [Docker_Stag]
     uses: ./.github/workflows/kubeDeploy.yaml
     secrets: inherit
     with:
       version: 'alpha'
   
-  deployKubeBeta:
-    needs: [deployDev]
+  Kub_Dep:
+    needs: [Docker_Dev]
     uses: ./.github/workflows/kubeDeploy.yaml
     secrets: inherit
     with:
       version: 'beta'
   
-  deployKubeLatest:
-    needs: [deployProd]
+  Kub_Prod:
+    needs: [Docker_Prod]
     uses: ./.github/workflows/kubeDeploy.yaml
     secrets: inherit
     with:

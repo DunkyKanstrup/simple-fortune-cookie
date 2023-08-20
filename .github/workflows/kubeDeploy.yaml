@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: set working directory
-        working-directory: ./kubernetes 
-      
+        
       - name: Copy kubeconfig
+        working-directory: ./kubernetes
         run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
 
       - name: run frontend
+        working-directory: ./kubernetes
         run: kubectl --kubeconfig kubeconfig apply -f .
+        
         

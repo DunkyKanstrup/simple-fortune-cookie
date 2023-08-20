@@ -20,6 +20,7 @@ jobs:
     uses: ./.github/workflows/deployment.yaml
     with:
       environment: 'staging'
+    secrets: inherit
 
   deployProd:
     needs: [build]
@@ -27,4 +28,12 @@ jobs:
     uses: ./.github/workflows/deployment.yaml
     with:
       environment: 'production'
+    secrets: inherit
+    
+
+  deployKube:
+    needs: [deployStage]
+    uses: ./.github/workflows/kubeDeploy.yaml
+    secrets: inherit
+
 

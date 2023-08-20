@@ -2,7 +2,11 @@ name: kuber-deploy
 
 on:
   workflow_call:
-
+    inputs:
+      version:
+        required: true
+        type: string
+  
 jobs:
   deploy_kubernetes:
     runs-on: ubuntu-latest
@@ -13,8 +17,23 @@ jobs:
         working-directory: ./kubernetes
         run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
 
+      - name: Set version for frontend
+        working-directory: ./kubernetes
+        run: sed "s/\${Version}/${{ inputs.version }}/g" deployment-frontend-template.yml > deployment-frontend.yml
+      
+      - name: Set version for backend
+        working-directory: ./kubernetes
+        run: sed "s/\${Version}/${{inputs.version}}/g" deployment-backend-template.yml > deployment-backend.yml
+
       - name: run frontend
         working-directory: ./kubernetes
-        run: kubectl --kubeconfig kubeconfig apply -f .
+        run: |
+          kubectl --kubeconfig kubeconfig apply -f deployment-frontend.yml
+          kubectl --kubeconfig kubeconfig apply -f deployment-backend.yml
+          kubectl --kubeconfig kubeconfig apply -f deployment-redis.yml
+          kubectl --kubeconfig kubeconfig apply -f environment-configmap.yaml
+          kubectl --kubeconfig kubeconfig apply -f backend-svc.yaml
+          kubectl --kubeconfig kubeconfig apply -f frontend-svc.yaml
+          kubectl --kubeconfig kubeconfig apply -f redis-svc.yaml
         
         

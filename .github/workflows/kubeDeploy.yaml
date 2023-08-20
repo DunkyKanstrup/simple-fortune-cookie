@@ -8,14 +8,17 @@ on:
         type: string
   
 jobs:
-  Kubernets_deployment:
+  Kubernets_setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        
       - name: Copy kubeconfig
         working-directory: ./kubernetes
         run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+      
+      - name: Delete old cluster
+        working-directory: ./kubernetes
+        run: kubectl --kubeconfig kubeconfig delete all --all  
 
       - name: Set version for frontend
         working-directory: ./kubernetes
@@ -25,7 +28,7 @@ jobs:
         working-directory: ./kubernetes
         run: sed "s/\${Version}/${{inputs.version}}/g" deployment-backend-template.yml > deployment-backend.yml
 
-      - name: run frontend
+      - name: Deploy
         working-directory: ./kubernetes
         run: |
           kubectl --kubeconfig kubeconfig apply -f deployment-frontend.yml
@@ -35,5 +38,6 @@ jobs:
           kubectl --kubeconfig kubeconfig apply -f backend-svc.yaml
           kubectl --kubeconfig kubeconfig apply -f frontend-svc.yaml
           kubectl --kubeconfig kubeconfig apply -f redis-svc.yaml
+
         
         

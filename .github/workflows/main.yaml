@@ -41,8 +41,8 @@ jobs:
     with:
       version: 'alpha'
   
-  Kub_Dep:
-    needs: [Docker_Dev]
+  Kub_Dev:
+    #needs: [Docker_Dev]
     uses: ./.github/workflows/kubeDeploy.yaml
     secrets: inherit
     with:
@@ -54,4 +54,17 @@ jobs:
     secrets: inherit
     with:
       version: 'latest'
+
+  Testing:
+    runs-on: ubuntu-latest
+    needs: [Kub_Dev]
+    steps:
+    - name: Download Code
+      uses: actions/checkout@v3
+      with:
+        name: code
+        path: .
+    - name: Execute Curl test
+      run: bash ci/curl-test.sh
+
 

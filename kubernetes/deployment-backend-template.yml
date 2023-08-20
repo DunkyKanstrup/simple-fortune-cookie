@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: p3cival/backend:latest
+          image: p3cival/backend:${Version}
           ports:
             - containerPort: 9000
           env:

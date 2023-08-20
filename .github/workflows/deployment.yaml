@@ -12,7 +12,7 @@ on:
         type: string
 
 jobs:
-  deploy_frontend:
+  Docker_frontend:
     runs-on: ubuntu-latest
     steps:
       -
@@ -39,7 +39,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ inputs.version }}
 
-  deploy_backend:
+  Docker_backend:
     runs-on: ubuntu-latest
     steps:
       -

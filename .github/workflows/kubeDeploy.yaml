@@ -1,0 +1,20 @@
+name: kuber-deploy
+
+on:
+  workflow_call:
+
+jobs:
+  deploy_kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: set working directory
+        working-directory: ./kubernetes 
+      
+      - name: Copy kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+
+      - name: run frontend
+        run: kubectl --kubeconfig kubeconfig apply -f .
+        
